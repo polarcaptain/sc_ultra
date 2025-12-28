@@ -1,91 +1,103 @@
-import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-            SC Ultra
-          </h1>
-          <p className="text-2xl md:text-3xl text-gray-700 mb-4 font-light">
-            Advanced Intelligence Assessment
+    <main className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="max-w-5xl px-6 py-12">
+        {/* Header */}
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">
+          Welcome to the S-C Ultra
+        </h1>
+
+        {/* Description Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-2">
+            Description
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            S-C ULTRA is a test guide that seeks to produce an accurate estimate of IQ across several different facets of <strong>g</strong> (general intelligence). This is accomplished by using several tests to obtain scores across all relevant facets of g factor (Gc, Gf, Gq, Gv, Gsm, Gs, etc) and using the most comprehensive and free test choices out there.
           </p>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-            Challenge your cognitive abilities with our comprehensive IQ test. 
-            Experience a sophisticated evaluation designed to measure your intelligence accurately.
+        </section>
+
+        {/* How to take S-C ULTRA Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-2">
+            How to take S-C ULTRA
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            On the left sidebar, you will find pages that guide you through taking tests to satisfy six major CHC indices (Verbal Comprehension Index, Fluid Reasoning Index, Visual Spatial Index, Quantitative Reasoning Index, Working Memory Index, and Processing Speed Index). After taking all the tests on each page, you can index your scores on the IQ indexer page at the top of the sidebar.
           </p>
-          
-          <Link 
-            href="/test"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-          >
-            Begin Test
-          </Link>
-        </div>
+        </section>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mt-20">
-          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Accurate Assessment</h3>
-            <p className="text-gray-600">
-              Scientifically designed questions that provide reliable intelligence measurements.
-            </p>
+        {/* Test Guidelines Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-2">
+            Test Guidelines
+          </h2>
+          <ol className="list-decimal list-inside space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <li>It is suggested to first read the Test Concepts before beginning the test portion of the document.</li>
+            <li>If you are in an environment that is distracting, if you are tired, or if you are experiencing extraneous circumstances that may hinder your cognitive performance, it is strongly suggested you refrain from taking any IQ test until you are in a situation where you can perform at your best. The reason is because an examinee's score may be lower than it should be or an examinee may feel distraught knowing their score could have (but not necessarily) been higher.</li>
+            <li>If you have taken one or more of the tests in S-C ULTRA you should use your previous score and not take the test again (remember norms may have been updated since your first test take). The reason being the practice effect can increase your score beyond what it should be.</li>
+            <li>The minimum age for S-C ULTRA is 16 and the maximum is 91. Although even then, ideally your age would be among the young adult category.</li>
+            <li>The S-C ULTRA's comprehensive nature means it's long (about 4.5 hours of test time). Therefore it is not expected that an examinee finishes every test in one or even several days.</li>
+            <li>Once you begin one of the tests in S-C ULTRA you must finish it and cannot pause or leave the test.</li>
+            <li>Before taking a test, you should take time to understand the instructions thoroughly and move to a proper environment. You should not be practicing for the test, you shouldn't study the actual testing contents, or trying to gain any sort of edge on the test.</li>
+            <li>Note the maximum possible score is <strong>FSIQ:175, GAI:176, CPI:159, CFI: 174</strong></li>
+          </ol>
+        </section>
+
+        {/* Additional Notes Section */}
+        <section className="mb-12 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 pl-6 py-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+            Additional Notes
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            This form is not a substitute for a professional test and should not be considered as relevant for psychological evaluation purposes. This form is not made by psychologists, psychometricians, statisticians, or any relevant professional. The validity of this test is not assured.
+          </p>
+        </section>
+
+        {/* Non-native English Speakers Note */}
+        <section className="mb-12 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 pl-6 py-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+            Note to non-native English speakers
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            For non-native English speakers, since English isn't your first language, the VCI and QRI section cannot adequately examine your abilities. Therefore, complete every section in S-C ULTRA except VCI and QRI. At the end there will be a special scoring spreadsheet that calculates your S-C ULTRA: Culture Fair Composite (CFI). If you still wish to take the VCI and QRI sections, just know the resulting score isn't accurate to an extent.
+          </p>
+        </section>
+
+        {/* Test Structure Section with Image */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-2">
+            Test Structure
+          </h2>
+          <div className="mt-4">
+            <Image
+              src="/test-structure.jpg"
+              alt="S-C Ultra Test Structure"
+              width={800}
+              height={600}
+              className="w-full h-auto"
+              priority
+            />
           </div>
+        </section>
 
-          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Quick Results</h3>
-            <p className="text-gray-600">
-              Get your IQ score and detailed analysis immediately after completing the test.
-            </p>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">Detailed Insights</h3>
-            <p className="text-gray-600">
-              Receive comprehensive feedback on your performance across different cognitive domains.
-            </p>
-          </div>
-        </div>
-
-        {/* Instructions */}
-        <div className="max-w-3xl mx-auto mt-20 bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Test Instructions</h2>
-          <ul className="space-y-4 text-gray-700">
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-3 font-bold">•</span>
-              <span>The test consists of multiple-choice questions designed to assess various cognitive abilities.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-3 font-bold">•</span>
-              <span>You will have a set amount of time to complete the assessment. Please answer to the best of your ability.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-3 font-bold">•</span>
-              <span>Read each question carefully before selecting your answer. There are no trick questions.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-blue-600 mr-3 font-bold">•</span>
-              <span>Your results will be displayed immediately upon completion of the test.</span>
-            </li>
+        {/* Acknowledgements Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-2">
+            Acknowledgements
+          </h2>
+          <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+            <li><strong>u/ParticleTyphoon</strong> (Publisher, Editor, everything else)</li>
+            <li><strong>u/alainece</strong> (Editor)</li>
+            <li><strong>u/BubblyClub2196</strong> (S-C ULTRA: Indexer, Big-ass "g" estimator, testing structure, CAIT factor analysis, 1980 SAT norms, vault of knowledge)</li>
+            <li><strong>u/EqusB</strong> (CAIT, 1980 SAT release)</li>
+            <li><strong>u/soapyarm</strong> (SMART)</li>
+            <li><strong>u/TrulyBalancedTree</strong> (eCorsi Block Tapping release)</li>
+            <li><strong>u/PolarCaptain</strong> (CAIT factor analysis, automation)</li>
           </ul>
-        </div>
+        </section>
       </div>
     </main>
   )

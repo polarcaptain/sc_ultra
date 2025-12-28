@@ -113,7 +113,7 @@ export default function TestPage() {
   if (showResults) {
     const score = calculateScore()
     return (
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center py-12">
         <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
           <div className="text-center">
             <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -158,8 +158,8 @@ export default function TestPage() {
   const progress = ((currentQuestion + 1) / sampleQuestions.length) * 100
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8">
+      <div className="max-w-4xl px-6">
         {/* Header */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex justify-between items-center mb-4">
