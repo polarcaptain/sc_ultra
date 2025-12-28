@@ -39,7 +39,7 @@ export default function TestSidebar({ isOpen = false, onClose }: TestSidebarProp
       <aside className={`
         fixed md:sticky top-16 md:top-20 left-0 z-50
         w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-6 
-        min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] overflow-y-auto
+        min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] overflow-y-auto scrollbar-thin
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
