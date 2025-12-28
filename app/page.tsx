@@ -6,7 +6,7 @@ export default function Home() {
       <div className="max-w-5xl px-6 py-12">
         {/* Header */}
         <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">
-          Welcome to the S-C Ultra
+          Welcome to the <span className="whitespace-nowrap">S-C Ultra</span>
         </h1>
 
         {/* Description Section */}

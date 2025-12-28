@@ -2,12 +2,17 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
-export default function Navbar() {
+interface NavbarProps {
+  onMenuClick?: () => void
+}
+
+export default function Navbar({ onMenuClick }: NavbarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const [darkMode, setDarkMode] = useState(false)
+  const mobileSelectRef = useRef<HTMLSelectElement>(null)
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -43,11 +48,26 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center space-x-3 text-2xl font-semibold text-gray-900 dark:text-gray-100">
-            <span className="material-symbols-outlined text-4xl">network_intel_node</span>
-            <span>S-C Ultra IQ Indexer</span>
-          </Link>
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center space-x-3">
+            {/* Mobile menu button */}
+            {onMenuClick && (
+              <button
+                onClick={onMenuClick}
+                className="md:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            )}
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3 text-lg md:text-2xl font-semibold text-gray-900 dark:text-gray-100">
+              <span className="material-symbols-outlined text-2xl md:text-4xl">network_intel_node</span>
+              <span className="hidden sm:inline">S-C Ultra IQ Indexer</span>
+              <span className="sm:hidden">S-C Ultra</span>
+            </Link>
+          </div>
 
           <div className="flex items-center space-x-6">
             <div className="hidden md:flex items-center space-x-2">
@@ -78,12 +98,12 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Reddit Icon */}
+            {/* Reddit Icon - hidden on mobile */}
             <a
               href="https://reddit.com/r/cognitiveTesting"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+              className="hidden md:flex p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
               aria-label="Visit r/cognitiveTesting on Reddit"
             >
               <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -91,9 +111,10 @@ export default function Navbar() {
               </svg>
             </a>
 
+            {/* Dark mode toggle - hidden on mobile */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="hidden md:flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle dark mode"
             >
               {darkMode ? (
@@ -110,22 +131,40 @@ export default function Navbar() {
             {/* Mobile menu */}
             <div className="md:hidden">
               <select
-                value={pathname}
+                ref={mobileSelectRef}
+                value={pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname}
                 onChange={(e) => {
-                  if (e.target.value.startsWith('http')) {
-                    window.open(e.target.value, '_blank')
-                  } else {
-                    router.push(e.target.value)
+                  const value = e.target.value
+                  
+                  if (value === '__toggle_dark_mode__') {
+                    toggleDarkMode()
+                    // Reset select to current pathname
+                    if (mobileSelectRef.current) {
+                      mobileSelectRef.current.value = pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname
+                    }
+                  } else if (value.startsWith('http')) {
+                    window.open(value, '_blank')
+                    // Reset select after opening link
+                    setTimeout(() => {
+                      if (mobileSelectRef.current) {
+                        mobileSelectRef.current.value = pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname
+                      }
+                    }, 0)
+                  } else if (value) {
+                    router.push(value)
                   }
                 }}
                 className="px-2 py-1 rounded bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-base text-gray-700 dark:text-gray-300"
               >
+                <option value="">Select...</option>
                 <option value="/">Home</option>
                 <option value="/concepts">Concepts</option>
                 <option value="https://docs.google.com/document/d/1BQ8h06qLrQvWQZ1YyAzXZ9OIzQS5W_LYuE_IWxiBEhk/edit">Validation</option>
                 <option value="https://compositator.com">IQ Calculator</option>
                 <option value="https://cognitivemetrics.com/tests">IQ Tests</option>
                 <option value="/faq">FAQ</option>
+                <option value="https://reddit.com/r/cognitiveTesting">Community</option>
+                <option value="__toggle_dark_mode__">{darkMode ? 'Light Mode' : 'Dark Mode'}</option>
               </select>
             </div>
           </div>

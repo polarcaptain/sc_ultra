@@ -175,18 +175,18 @@ export default function IndexerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-12">
-      <div className="px-6">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-6 md:py-12">
+      <div className="px-4 md:px-6">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-gray-100">
           S-C ULTRA IQ Indexer
         </h1>
 
         {/* Input Section */}
         <section className="mb-8 border-b border-gray-200 dark:border-gray-800 pb-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Enter SS Scores</h2>
-          <div className="grid grid-cols-2 gap-6">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Enter SS Scores</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Column 1 */}
-            <div className="space-y-6 border-r border-gray-300 dark:border-gray-700 pr-6">
+            <div className="space-y-6 md:border-r md:border-gray-300 md:dark:border-gray-700 md:pr-6">
               <div className="flex items-center gap-4">
                 <span className="text-sm font-bold text-blue-600 dark:text-blue-400 w-8">VR</span>
                 <input
@@ -325,31 +325,34 @@ export default function IndexerPage() {
         {indexResults.length > 0 && (
           <>
             {/* Charts Section */}
-            <section className="mb-8 grid md:grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Cognitive Profile</h3>
-                <ResponsiveContainer width="100%" height={450}>
+            <section className="mb-8 grid md:grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-white dark:bg-gray-800 p-3 md:p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Cognitive Profile</h3>
+                <div className="h-[350px] md:h-[450px]">
+                <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={indexResults.map((r, i) => ({
                       name: r.index,
                       score: r.score,
                       color: i < 6 ? '#3b82f6' : '#1e40af'
                     }))}
-                    margin={{ top: 10, right: 10, left: 10, bottom: 30 }}
+                    margin={{ top: 10, right: 10, left: 0, bottom: 50 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#e5e7eb'} />
                     <XAxis
                       dataKey="name"
                       angle={-45}
                       textAnchor="end"
-                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 12 }}
+                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 10 }}
                       interval={0}
+                      height={60}
                     />
                     <YAxis
                       domain={[40, 175]}
                       ticks={[40, 55, 70, 85, 100, 115, 130, 145, 160, 175]}
-                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 12 }}
-                      label={{ value: 'Score', angle: -90, position: 'insideLeft', fill: isDarkMode ? '#f3f4f6' : '#111827' }}
+                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 10 }}
+                      label={{ value: 'Score', angle: -90, position: 'insideLeft', fill: isDarkMode ? '#f3f4f6' : '#111827', style: { fontSize: '12px' } }}
+                      width={40}
                     />
                     <Tooltip
                       contentStyle={{
@@ -371,32 +374,36 @@ export default function IndexerPage() {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
+                </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Latent Profile</h3>
-                <ResponsiveContainer width="100%" height={450}>
+              <div className="bg-white dark:bg-gray-800 p-3 md:p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg md:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Latent Profile</h3>
+                <div className="h-[350px] md:h-[450px]">
+                <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={factorResults.map((r, i) => ({
                       name: r.factor,
                       score: r.score,
                       color: i === 0 ? '#dc2626' : '#16a34a'
                     }))}
-                    margin={{ top: 10, right: 10, left: 10, bottom: 30 }}
+                    margin={{ top: 10, right: 10, left: 0, bottom: 50 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#e5e7eb'} />
                     <XAxis
                       dataKey="name"
                       angle={-45}
                       textAnchor="end"
-                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 12 }}
+                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 10 }}
                       interval={0}
+                      height={60}
                     />
                     <YAxis
                       domain={[40, 175]}
                       ticks={[40, 55, 70, 85, 100, 115, 130, 145, 160, 175]}
-                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 12 }}
-                      label={{ value: 'Score', angle: -90, position: 'insideLeft', fill: isDarkMode ? '#f3f4f6' : '#111827' }}
+                      tick={{ fill: isDarkMode ? '#f3f4f6' : '#111827', fontSize: 10 }}
+                      label={{ value: 'Score', angle: -90, position: 'insideLeft', fill: isDarkMode ? '#f3f4f6' : '#111827', style: { fontSize: '12px' } }}
+                      width={40}
                     />
                     <Tooltip
                       contentStyle={{
@@ -418,29 +425,30 @@ export default function IndexerPage() {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
+                </div>
               </div>
             </section>
 
             <section className="mb-8 border-b border-gray-200 dark:border-gray-800 pb-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 {/* Index Results */}
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Index Results</h2>
+                  <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Index Results</h2>
                   <div className="overflow-x-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
                     <table className="w-full">
                       <thead>
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700">
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">Index</th>
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">Score</th>
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">CI</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">Index</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">Score</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">CI</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         {indexResults.map((result, index) => (
                           <tr key={index} className={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 ${index < 6 ? 'bg-blue-50/50 dark:bg-blue-900/10' : 'bg-white dark:bg-gray-800'}`}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">{result.index}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{result.score}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{result.ci}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm font-semibold text-gray-900 dark:text-gray-100">{result.index}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-100">{result.score}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-100">{result.ci}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -450,22 +458,22 @@ export default function IndexerPage() {
 
                 {/* Latent Factor Results */}
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Latent Factor Results</h2>
+                  <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Latent Factor Results</h2>
                   <div className="overflow-x-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
                     <table className="w-full">
                       <thead>
                         <tr className="bg-gradient-to-r from-green-500 to-green-600 dark:from-green-600 dark:to-green-700">
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">Factor</th>
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">Score</th>
-                          <th className="px-6 py-3 text-left text-sm font-semibold text-white uppercase tracking-wider">CI</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">Factor</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">Score</th>
+                          <th className="px-3 md:px-6 py-3 text-left text-xs md:text-sm font-semibold text-white uppercase tracking-wider">CI</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         {factorResults.map((result, index) => (
                           <tr key={index} className={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 ${index === 0 ? 'bg-red-50/50 dark:bg-red-900/10' : 'bg-green-50/50 dark:bg-green-900/10'}`}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">{result.factor}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{result.score}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{result.ci}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm font-semibold text-gray-900 dark:text-gray-100">{result.factor}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-100">{result.score}</td>
+                            <td className="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-100">{result.ci}</td>
                           </tr>
                         ))}
                       </tbody>
