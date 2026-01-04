@@ -12,8 +12,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const [darkMode, setDarkMode] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const mobileSelectRef = useRef<HTMLSelectElement>(null)
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -45,42 +44,6 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     { href: 'https://cognitivemetrics.com/tests', label: 'IQ Tests', external: true },
     { href: '/faq', label: 'FAQ' },
   ]
-
-  const mobileNavLinks = [
-    ...navLinks,
-    { href: 'https://reddit.com/r/cognitiveTesting', label: 'Community', external: true },
-  ]
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false)
-      }
-    }
-
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [mobileMenuOpen])
-
-  const handleMobileNavClick = (href: string, external: boolean = false) => {
-    setMobileMenuOpen(false)
-    if (external) {
-      window.open(href, '_blank')
-    } else {
-      router.push(href)
-    }
-  }
-
-  const handleMobileToggleDarkMode = () => {
-    toggleDarkMode()
-    setMobileMenuOpen(false)
-  }
 
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 shadow-sm">
@@ -166,59 +129,43 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             </button>
 
             {/* Mobile menu */}
-            <div className="md:hidden relative" ref={mobileMenuRef}>
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Toggle menu"
+            <div className="md:hidden">
+              <select
+                ref={mobileSelectRef}
+                value={pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname}
+                onChange={(e) => {
+                  const value = e.target.value
+                  
+                  if (value === '__toggle_dark_mode__') {
+                    toggleDarkMode()
+                    // Reset select to current pathname
+                    if (mobileSelectRef.current) {
+                      mobileSelectRef.current.value = pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname
+                    }
+                  } else if (value.startsWith('http')) {
+                    window.open(value, '_blank')
+                    // Reset select after opening link
+                    setTimeout(() => {
+                      if (mobileSelectRef.current) {
+                        mobileSelectRef.current.value = pathname === 'https://reddit.com/r/cognitiveTesting' ? '' : pathname
+                      }
+                    }, 0)
+                  } else if (value) {
+                    router.push(value)
+                  }
+                }}
+                className="px-2 py-1 rounded bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-base text-gray-700 dark:text-gray-300"
               >
-                <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                </svg>
-              </button>
-
-              {/* Dropdown menu */}
-              {mobileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 transform transition-all duration-200 ease-out opacity-100 scale-100">
-                  {mobileNavLinks.map((link) => {
-                    const isActive = !link.external && pathname === link.href
-                    return (
-                      <button
-                        key={link.href}
-                        onClick={() => handleMobileNavClick(link.href, link.external)}
-                        className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
-                          isActive
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                        }`}
-                      >
-                        {link.label}
-                      </button>
-                    )
-                  })}
-                  <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
-                  <button
-                    onClick={handleMobileToggleDarkMode}
-                    className="w-full text-left px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center"
-                  >
-                    {darkMode ? (
-                      <>
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        Light Mode
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
-                        Dark Mode
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
+                <option value="">Select...</option>
+                <option value="/">Home</option>
+                <option value="/concepts">Concepts</option>
+                <option value="https://docs.google.com/document/d/1BQ8h06qLrQvWQZ1YyAzXZ9OIzQS5W_LYuE_IWxiBEhk/edit">Validation</option>
+                <option value="https://cognitivemetrics.com/calculator">IQ Calculator</option>
+                <option value="https://cognitivemetrics.com/tests">IQ Tests</option>
+                <option value="/faq">FAQ</option>
+                <option value="https://reddit.com/r/cognitiveTesting">Community</option>
+                <option value="__toggle_dark_mode__">{darkMode ? 'Light Mode' : 'Dark Mode'}</option>
+              </select>
             </div>
           </div>
         </div>
